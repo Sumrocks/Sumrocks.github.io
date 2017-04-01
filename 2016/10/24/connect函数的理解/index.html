@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="javascript,react-native,redux," />
 
 
 
@@ -87,15 +87,22 @@
 
 
 
-<meta name="description" content="Enjoy life ！Enjoy coding !">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sumrock's blog">
-<meta property="og:url" content="http://sumrock.com/index.html">
+<meta name="description" content="connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])连接 React 组件与 Redux store。
+连接操作不会改变原来的组件类，反而返回一个新的已与 Redux store 连接的组件类。
+参数[mapStateToProps(state, [ownProps]): stateProps] (Fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对connect函数的理解">
+<meta property="og:url" content="http://sumrock.com/2016/10/24/connect函数的理解/index.html">
 <meta property="og:site_name" content="Sumrock's blog">
-<meta property="og:description" content="Enjoy life ！Enjoy coding !">
+<meta property="og:description" content="connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])连接 React 组件与 Redux store。
+连接操作不会改变原来的组件类，反而返回一个新的已与 Redux store 连接的组件类。
+参数[mapStateToProps(state, [ownProps]): stateProps] (Fun">
+<meta property="og:updated_time" content="2017-04-01T10:34:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sumrock's blog">
-<meta name="twitter:description" content="Enjoy life ！Enjoy coding !">
+<meta name="twitter:title" content="对connect函数的理解">
+<meta name="twitter:description" content="connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])连接 React 组件与 Redux store。
+连接操作不会改变原来的组件类，反而返回一个新的已与 Redux store 连接的组件类。
+参数[mapStateToProps(state, [ownProps]): stateProps] (Fun">
 
 
 
@@ -123,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://sumrock.com/"/>
+  <link rel="canonical" href="http://sumrock.com/2016/10/24/connect函数的理解/"/>
 
 
 
 
 
-  <title> Sumrock's blog </title>
+  <title> 对connect函数的理解 | Sumrock's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,9 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -239,153 +244,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://sumrock.com/2016/10/28/js中apply方法的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sumrock">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://upload.jianshu.io/users/upload_avatars/1248906/000a78b99fc6?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sumrock's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/28/js中apply方法的使用/" itemprop="url">
-                  js中apply方法的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-28T13:11:50+08:00">
-                2016-10-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.对象的继承，一般的做法是复制：Object.extend</p>
-<p>prototype.js的实现方式是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Object.extend = function(destination, source) &#123; </div><div class="line">    for (property in source) &#123; </div><div class="line">        destination[property] = source[property]; </div><div class="line">    &#125; </div><div class="line">    return destination; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>除此之外，还有种方法，就是：Function.apply（当然使用Function.call也是可以的）</p>
-<p>apply方法能劫持另外一个对象的方法，继承另外一个对象的属性</p>
-<p>Function.apply(obj,args)方法能接收两个参数</p>
-<pre><code>obj：这个对象将代替Function类里this对象
-
-args：这个是数组，它将作为参数传给Function（args--&gt;arguments）
-</code></pre><p>apply示范代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">function Person(name,age)&#123;   //定义一个类，人类  </div><div class="line">    this.name=name;     //名字  </div><div class="line">    this.age=age;       //年龄 </div><div class="line">    this.sayhello=function()&#123;alert(&quot;hello&quot;)&#125;;</div><div class="line">&#125; </div><div class="line">function Print()&#123;            //显示类的属性 </div><div class="line">    this.funcName=&quot;Print&quot;; </div><div class="line">    this.show=function()&#123;      </div><div class="line">        var msg=[];</div><div class="line">        for(var key in this)&#123; </div><div class="line">            if(typeof(this[key])!=&quot;function&quot;)&#123;</div><div class="line">                msg.push([key,&quot;:&quot;,this[key]].join(&quot;&quot;));</div><div class="line">            &#125;</div><div class="line">        &#125; </div><div class="line">        alert(msg.join(&quot; &quot;));</div><div class="line">    &#125;;</div><div class="line">&#125; </div><div class="line">function Student(name,age,grade,school)&#123;    //学生类 </div><div class="line">    Person.apply(this,arguments);</div><div class="line">    Print.apply(this,arguments);</div><div class="line">    this.grade=grade;                //年级 </div><div class="line">    this.school=school;                 //学校 </div><div class="line">&#125; </div><div class="line">var p1=new Person(&quot;jake&quot;,10);</div><div class="line">p1.sayhello();</div><div class="line">var s1=new Student(&quot;tom&quot;,13,6,&quot;清华小学&quot;);</div><div class="line">s1.show();</div><div class="line">s1.sayhello();</div><div class="line">alert(s1.funcName);</div></pre></td></tr></table></figure>
-<p>学生类本来不具备任何方法，但是在Person.apply(this,arguments)后，</p>
-<p>他就具备了Person类的sayhello方法和所有属性。</p>
-<p>在Print.apply(this,arguments)后就自动得到了show()方法</p>
-<p>2.利用Apply的参数数组化来提高</p>
-<p>Function.apply()在提升程序性能方面的技巧</p>
-<p>我们先从Math.max()函数说起，Math.max后面可以接任意个参数，最后返回所有参数中的最大值。</p>
-<p>比如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(Math.max(5,8))   //8</div><div class="line">alert(Math.max(5,7,9,3,1,6))   //9</div></pre></td></tr></table></figure>
-<p>但是在很多情况下，我们需要找出数组中最大的元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var arr=[5,7,9,1]</div><div class="line">alert(Math.max(arr))    // 这样却是不行的。一定要这样写</div><div class="line"></div><div class="line">function getMax(arr)&#123;</div><div class="line">    var arrLen=arr.length;</div><div class="line">    for(var i=0,ret=arr[0];i&lt;arrLen;i++)&#123;</div><div class="line">        ret=Math.max(ret,arr[i]);       </div><div class="line">    &#125;</div><div class="line">    return ret;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样写麻烦而且低效。如果用 apply呢，看代码：<br>function getMax2(arr){<br>    return Math.max.apply(null,arr);<br>}<br>两段代码达到了同样的目的，但是getMax2却优雅，高效，简洁得多。<br>再比如数组的push方法。<br>var arr1=[1,3,4];<br>var arr2=[3,4,5];<br>如果我们要把 arr2展开，然后一个一个追加到arr1中去，最后让arr1=[1,3,4,3,4,5]<br>arr1.push(arr2)显然是不行的。 因为这样做会得到[1,3,4,[3,4,5]]</p>
-<p>我们只能用一个循环去一个一个的push(当然也可以用arr1.concat(arr2)，但是concat方法并不改变arr1本身)<br>var arrLen=arr2.length<br>for(var i=0;i&lt;arrLen;i++){<br>    arr1.push(arr2[i]);<br>}</p>
-<p>自从有了Apply,事情就变得如此简单<br>Array.prototype.push.apply(arr1,arr2)</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
 
   
 
@@ -415,10 +276,7 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
             
             
               
-                
-                <a class="post-title-link" href="/2016/10/24/connect函数的理解/" itemprop="url">
-                  对connect函数的理解
-                </a>
+                对connect函数的理解
               
             
           </h1>
@@ -469,9 +327,7 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
       
 
       
-        
-          
-            <h3 id="connect-mapStateToProps-mapDispatchToProps-mergeProps-options"><a href="#connect-mapStateToProps-mapDispatchToProps-mergeProps-options" class="headerlink" title="connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])"></a>connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])</h3><p>连接 React 组件与 Redux store。</p>
+        <h3 id="connect-mapStateToProps-mapDispatchToProps-mergeProps-options"><a href="#connect-mapStateToProps-mapDispatchToProps-mergeProps-options" class="headerlink" title="connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])"></a>connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])</h3><p>连接 React 组件与 Redux store。</p>
 <p>连接操作不会改变原来的组件类，反而返回一个新的已与 Redux store 连接的组件类。</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><h3 id="mapStateToProps-state-ownProps-stateProps-Function"><a href="#mapStateToProps-state-ownProps-stateProps-Function" class="headerlink" title="[mapStateToProps(state, [ownProps]): stateProps] (Function):"></a>[mapStateToProps(state, [ownProps]): stateProps] (Function):</h3><p>如果定义该参数，组件将会监听 Redux store 的变化。任何时候，只要 Redux store 发生改变，mapStateToProps 函数就会被调用。该回调函数必须返回一个纯对象，这个对象会与组件的 props 合并。如果你省略了这个参数，你的组件将不会监听 Redux store。如果指定了该回调函数中的第二个参数 ownProps，则该参数的值为传递到组件的 props，而且只要组件接收到新的 props，mapStateToProps 也会被调用。</p>
 <h3 id="mapDispatchToProps-dispatch-ownProps-dispatchProps-Object-or-Function"><a href="#mapDispatchToProps-dispatch-ownProps-dispatchProps-Object-or-Function" class="headerlink" title="[mapDispatchToProps(dispatch, [ownProps]): dispatchProps] (Object or Function):"></a>[mapDispatchToProps(dispatch, [ownProps]): dispatchProps] (Object or Function):</h3><p>如果传递的是一个对象，那么每个定义在该对象的函数都将被当作 Redux action creator，而且这个对象会与 Redux store 绑定在一起，其中所定义的方法名将作为属性名，合并到组件的 props 中。如果传递的是一个函数，该函数将接收一个 dispatch 函数，然后由你来决定如何返回一个对象，这个对象通过 dispatch 函数与 action creator 以某种方式绑定在一起（提示：你也许会用到 Redux 的辅助函数 bindActionCreators()）。如果你省略这个 mapDispatchToProps 参数，默认情况下，dispatch 会注入到你的组件 props 中。如果指定了该回调函数中第二个参数 ownProps，该参数的值为传递到组件的 props，而且只要组件接收到新 props，mapDispatchToProps 也会被调用。</p>
@@ -484,42 +340,76 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">import &#123; Component &#125; from &apos;react&apos;;</div><div class="line">export default class Counter extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;button onClick=&#123;this.props.onIncrement&#125;&gt;</div><div class="line">        &#123;this.props.value&#125;</div><div class="line">      &lt;/button&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">containers/CounterContainer.js</div><div class="line">import &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123; connect &#125; from &apos;react-redux&apos;;</div><div class="line">import Counter from &apos;../components/Counter&apos;;</div><div class="line">import &#123; increment &#125; from &apos;../actionsCreators&apos;;</div><div class="line">// 哪些 Redux 全局的 state 是我们组件想要通过 props 获取的？</div><div class="line">function mapStateToProps(state) &#123;</div><div class="line">  return &#123;</div><div class="line">    value: state.counter</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">// 哪些 action 创建函数是我们想要通过 props 获取的？</div><div class="line">function mapDispatchToProps(dispatch) &#123;</div><div class="line">  return &#123;</div><div class="line">    onIncrement: () =&gt; dispatch(increment())</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line">export default connect(</div><div class="line">  mapStateToProps,</div><div class="line">  mapDispatchToProps</div><div class="line">)(Counter);</div></pre></td></tr></table></figure>
 <p>总结一下，connect后面第二个括号是要添加prop的react组件，第一个括号中的参数是用来改变该组件prop的方法，第一个括号有两个参数，第一个参数是一个函数，返回一个对象，对象的键是该组件的prop属性，值是该prop的值；第二个参数也是一个函数，返回一个对象，对象的键同样是prop的属性名，值是一个redux的dispatch，当这个prop属性被用于触发时，dispatch会改变redux中state的值。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/react-native/" rel="tag"># react-native</a>
+          
+            <a href="/tags/redux/" rel="tag"># redux</a>
+          
+        </div>
       
 
       
+        
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/28/js中apply方法的使用/" rel="prev" title="js中apply方法的使用">
+                js中apply方法的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -527,6 +417,10 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -546,8 +440,17 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/1248906/000a78b99fc6?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
@@ -600,6 +503,22 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#connect-mapStateToProps-mapDispatchToProps-mergeProps-options"><span class="nav-number">1.</span> <span class="nav-text">connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapStateToProps-state-ownProps-stateProps-Function"><span class="nav-number">3.</span> <span class="nav-text">[mapStateToProps(state, [ownProps]): stateProps] (Function):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapDispatchToProps-dispatch-ownProps-dispatchProps-Object-or-Function"><span class="nav-number">4.</span> <span class="nav-text">[mapDispatchToProps(dispatch, [ownProps]): dispatchProps] (Object or Function):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mergeProps-stateProps-dispatchProps-ownProps-props-Function"><span class="nav-number">5.</span> <span class="nav-text">[mergeProps(stateProps, dispatchProps, ownProps): props] (Function):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#options-Object-如果指定这个参数，可以定制-connector-的行为。"><span class="nav-number">6.</span> <span class="nav-text">[options] (Object) 如果指定这个参数，可以定制 connector 的行为。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pure-true-Boolean"><span class="nav-number">6.0.1.</span> <span class="nav-text">[pure = true] (Boolean):</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#withRef-false-Boolean"><span class="nav-number">6.0.2.</span> <span class="nav-text">[withRef = false] (Boolean):</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -703,6 +622,10 @@ args：这个是数组，它将作为参数传给Function（args--&gt;arguments�
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
